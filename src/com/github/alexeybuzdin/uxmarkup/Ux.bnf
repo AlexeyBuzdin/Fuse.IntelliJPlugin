@@ -1,0 +1,20 @@
+{
+  parserClass="com.github.alexeybuzdin.uxmarkup.parser.UxParser"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="Ux"
+  psiImplClassSuffix="Impl"
+  psiPackage="com.github.alexeybuzdin.uxmarkup.psi"
+  psiImplPackage="com.github.alexeybuzdin.uxmarkup.psi.impl"
+
+  elementTypeHolderClass="com.github.alexeybuzdin.uxmarkup.psi.UxTypes"
+  elementTypeClass="com.github.alexeybuzdin.uxmarkup.psi.UxElementType"
+  tokenTypeClass="com.github.alexeybuzdin.uxmarkup.psi.UxTokenType"
+
+  psiImplUtilClass="com.github.alexeybuzdin.uxmarkup.psi.impl.UxPsiImplUtil"
+}
+
+simpleFile ::= (property|COMMENT)*
+
+property ::= (KEY SEPARATOR VALUE?)|KEY

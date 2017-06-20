@@ -23,6 +23,7 @@ cmake-build-debug/
 
 # IntelliJ
 /out/
+gen/
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
@@ -60,3 +61,6 @@ gradle-app.setting
 
 # Cache of project
 .gradletasknamecache
+
+idea-flex.skeleton
+*.jar
