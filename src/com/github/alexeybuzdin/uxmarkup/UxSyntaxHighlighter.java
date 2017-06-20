@@ -39,12 +39,8 @@ public class UxSyntaxHighlighter extends SyntaxHighlighterBase {
     @NotNull
     @Override
     public TextAttributesKey[] getTokenHighlights(IElementType tokenType) {
-        if (tokenType.equals(UxTypes.SEPARATOR)) {
-            return SEPARATOR_KEYS;
-        } else if (tokenType.equals(UxTypes.KEY)) {
+        if (tokenType.equals(UxTypes.NODE)) {
             return KEY_KEYS;
-        } else if (tokenType.equals(UxTypes.VALUE)) {
-            return VALUE_KEYS;
         } else if (tokenType.equals(UxTypes.COMMENT)) {
             return COMMENT_KEYS;
         } else if (tokenType.equals(TokenType.BAD_CHARACTER)) {

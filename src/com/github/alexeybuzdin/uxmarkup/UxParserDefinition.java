@@ -1,5 +1,6 @@
 package com.github.alexeybuzdin.uxmarkup;
 
+import com.github.alexeybuzdin.uxmarkup.parser.*;
 import com.github.alexeybuzdin.uxmarkup.psi.*;
 import com.intellij.lang.*;
 import com.intellij.lexer.Lexer;

@@ -11,6 +11,6 @@ public class UxTokenType extends IElementType {
 
     @Override
     public String toString() {
-        return "SimpleTokenType." + super.toString();
+        return "UxTokenType." + super.toString();
     }
 }

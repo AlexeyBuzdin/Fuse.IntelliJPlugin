@@ -20,25 +20,21 @@ WHITE_SPACE=[\ \n\t\f]
 FIRST_VALUE_CHARACTER=[^ \n\f\\] | "\\"{CRLF} | "\\".
 VALUE_CHARACTER=[^\n\f\\] | "\\"{CRLF} | "\\".
 END_OF_LINE_COMMENT=("#"|"!")[^\r\n]*
-SEPARATOR=[:=]
 KEY_CHARACTER=[^:=\ \n\t\f\\] | "\\ "
+STRING=[\w]*
 
-%state WAITING_VALUE
+%state WAITING_VALUE, STRING
 
 %%
 
-<YYINITIAL> {END_OF_LINE_COMMENT}                           { yybegin(YYINITIAL); return UxTypes.COMMENT; }
+{STRING}                                    {  return UxTypes.STRING; }
 
-<YYINITIAL> {KEY_CHARACTER}+                                { yybegin(YYINITIAL); return UxTypes.KEY; }
+ {END_OF_LINE_COMMENT}                           {return UxTypes.COMMENT; }
 
-<YYINITIAL> {SEPARATOR}                                     { yybegin(WAITING_VALUE); return UxTypes.SEPARATOR; }
+ {CRLF}({CRLF}|{WHITE_SPACE})+               { return TokenType.WHITE_SPACE; }
 
-<WAITING_VALUE> {CRLF}({CRLF}|{WHITE_SPACE})+               { yybegin(YYINITIAL); return TokenType.WHITE_SPACE; }
+ {WHITE_SPACE}+                              { return TokenType.WHITE_SPACE; }
 
-<WAITING_VALUE> {WHITE_SPACE}+                              { yybegin(WAITING_VALUE); return TokenType.WHITE_SPACE; }
-
-<WAITING_VALUE> {FIRST_VALUE_CHARACTER}{VALUE_CHARACTER}*   { yybegin(YYINITIAL); return UxTypes.VALUE; }
-
-({CRLF}|{WHITE_SPACE})+                                     { yybegin(YYINITIAL); return TokenType.WHITE_SPACE; }
+({CRLF}|{WHITE_SPACE})+                                     { return TokenType.WHITE_SPACE; }
 
 .                                                           { return TokenType.BAD_CHARACTER; }

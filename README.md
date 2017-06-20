@@ -19,4 +19,6 @@ Planned Features
 
 Helpful Stuff
 =================
-- *Clearing Cache in Plugin Debug IntelliJ* `rm -rf ~/Library/Caches/IntelliJIdea2017.1/plugins-sandbox/` 
+- *Clearing Cache in Plugin Debug IntelliJ* `rm -rf ~/Library/Caches/IntelliJIdea2017.1/plugins-sandbox/`
+- [How to Write Custom Language Support Plugins](http://www.jetbrains.org/intellij/sdk/docs/tutorials/custom_language_support_tutorial.html)
+- [Grammar-Kit BNF Syntax](https://github.com/JetBrains/Grammar-Kit/blob/master/TUTORIAL.md)

@@ -12,9 +12,24 @@
   elementTypeClass="com.github.alexeybuzdin.uxmarkup.psi.UxElementType"
   tokenTypeClass="com.github.alexeybuzdin.uxmarkup.psi.UxTokenType"
 
-  psiImplUtilClass="com.github.alexeybuzdin.uxmarkup.psi.impl.UxPsiImplUtil"
+//  psiImplUtilClass="com.github.alexeybuzdin.uxmarkup.psi.impl.UxPsiImplUtil"
 }
 
-simpleFile ::= (property|COMMENT)*
+//<Panel ux:Class="Something">
+//  <Panel Height="100" Width="100" Color="#00f" />
+//</Panel>
 
-property ::= (KEY SEPARATOR VALUE?)|KEY
+uxFile ::= node?
+
+node ::= node_empty | node_inner
+node_empty ::= tag_start node_name slash tag_end
+node_inner ::= tag_start node_name tag_end node_body tag_start slash node_name tag_end
+
+node_body ::= (node+ | STRING)?
+node_name ::= STRING
+
+COMMENT ::= "#"
+
+tag_start ::= '<'
+tag_end   ::= '>'
+slash     ::= '/'
