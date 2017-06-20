@@ -17,3 +17,6 @@ Planned Features
 - Shortcuts for building Fuse Views
 - Native UI Preview in Android Studio 
 
+Helpful Stuff
+=================
+- *Clearing Cache in Plugin Debug IntelliJ* `rm -rf ~/Library/Caches/IntelliJIdea2017.1/plugins-sandbox/` 
