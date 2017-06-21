@@ -28,8 +28,7 @@ equals    ::= '='
 colon     ::= ':'
 sign      ::= equals | colon
 
-comment_start ::= '<!--'
-comment_end ::= '-->'
+private comment ::= (BLOCK_COMMENT)
 
 js_start ::= "<JavaScript>"
 js_end ::= "</JavaScript>"
@@ -42,5 +41,4 @@ node_body ::= node*
 
 attribute ::= (ATTRIBUTE_SCHEMA colon)? ATTRIBUTE_NAME equals STRING
 
-comment ::= comment_start COMMENT_BODY* comment_end
-js_node ::= js_start JS_BODY* js_end
+js_node ::= js_start JS_BODY js_end

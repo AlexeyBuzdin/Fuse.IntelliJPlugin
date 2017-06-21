@@ -58,7 +58,7 @@ public class UxSyntaxHighlighter extends SyntaxHighlighterBase {
             return ATTRIBUTE_KEYS;
         } if (tokenType.equals(UxTypes.NODE_NAME)) {
             return KEY_KEYS;
-        }  else if (tokenType.equals(UxTypes.COMMENT)) {
+        }  else if (tokenType.equals(UxTypes.BLOCK_COMMENT)) {
             return COMMENT_KEYS;
         } else if (tokenType.equals(UxTypes.SIGN)) {
             return SEPARATOR_KEYS;
