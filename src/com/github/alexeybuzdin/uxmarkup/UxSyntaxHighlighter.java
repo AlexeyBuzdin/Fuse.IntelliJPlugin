@@ -46,12 +46,18 @@ public class UxSyntaxHighlighter extends SyntaxHighlighterBase {
             return KEY_KEYS;
         } if (tokenType.equals(UxTypes.TAG_END)) {
             return KEY_KEYS;
-        } if (tokenType.equals(UxTypes.IDENTIFIER)) {
+        } if (tokenType.equals(UxTypes.JS_NODE)) {
             return KEY_KEYS;
         } if (tokenType.equals(UxTypes.EQUALS)) {
             return SEPARATOR_KEYS;
         } if (tokenType.equals(UxTypes.STRING)) {
             return VALUE_KEYS;
+        } if (tokenType.equals(UxTypes.ATTRIBUTE_SCHEMA)) {
+            return ATTRIBUTE_KEYS;
+        } if (tokenType.equals(UxTypes.ATTRIBUTE_NAME)) {
+            return ATTRIBUTE_KEYS;
+        } if (tokenType.equals(UxTypes.NODE_NAME)) {
+            return KEY_KEYS;
         }  else if (tokenType.equals(UxTypes.COMMENT)) {
             return COMMENT_KEYS;
         } else if (tokenType.equals(UxTypes.SIGN)) {

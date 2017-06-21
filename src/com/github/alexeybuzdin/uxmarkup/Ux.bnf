@@ -13,6 +13,10 @@
   tokenTypeClass="com.github.alexeybuzdin.uxmarkup.psi.UxTokenType"
 
   psiImplUtilClass="com.github.alexeybuzdin.uxmarkup.psi.impl.UxPsiImplUtil"
+
+  tokens = [
+    JS_BODY="regexp:(.|\n)*"
+  ]
 }
 
 uxFile ::= node?
@@ -27,17 +31,16 @@ sign      ::= equals | colon
 comment_start ::= '<!--'
 comment_end ::= '-->'
 
-node ::= comment*(node_empty | node_inner)
-node_empty ::= tag_start node_name (attribute)* slash tag_end
-node_inner ::= tag_start node_name (attribute)* tag_end node_body tag_start slash node_name tag_end
+js_start ::= "<JavaScript>"
+js_end ::= "</JavaScript>"
+
+node ::= comment*(node_empty | node_inner | js_node)
+node_empty ::= tag_start NODE_NAME (attribute)* slash tag_end
+node_inner ::= tag_start NODE_NAME (attribute)* tag_end node_body tag_start slash NODE_NAME tag_end
 
 node_body ::= node*
-node_name ::= IDENTIFIER
 
-attribute ::= attribute_name equals STRING
-attribute_name ::= attribute_schema? IDENTIFIER
-attribute_schema ::= IDENTIFIER colon
+attribute ::= (ATTRIBUTE_SCHEMA colon)? ATTRIBUTE_NAME equals STRING
 
-comment ::= comment_start '.'* comment_end
-
-
+comment ::= comment_start COMMENT_BODY* comment_end
+js_node ::= js_start JS_BODY* js_end
