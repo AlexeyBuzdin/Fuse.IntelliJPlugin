@@ -12,24 +12,20 @@
   elementTypeClass="com.github.alexeybuzdin.uxmarkup.psi.UxElementType"
   tokenTypeClass="com.github.alexeybuzdin.uxmarkup.psi.UxTokenType"
 
-//  psiImplUtilClass="com.github.alexeybuzdin.uxmarkup.psi.impl.UxPsiImplUtil"
+  psiImplUtilClass="com.github.alexeybuzdin.uxmarkup.psi.impl.UxPsiImplUtil"
 }
 
-//<Panel ux:Class="Something">
-//  <Panel Height="100" Width="100" Color="#00f" />
-//</Panel>
-
 uxFile ::= node?
+
+tag_start ::= '<'
+tag_end   ::= '>'
+slash     ::= '/'
 
 node ::= node_empty | node_inner
 node_empty ::= tag_start node_name slash tag_end
 node_inner ::= tag_start node_name tag_end node_body tag_start slash node_name tag_end
 
-node_body ::= (node+ | STRING)?
-node_name ::= STRING
+node_body ::= node*
+node_name ::= IDENTIFIER
 
-COMMENT ::= "#"
-
-tag_start ::= '<'
-tag_end   ::= '>'
-slash     ::= '/'
+COMMENT ::= "#" KEY*

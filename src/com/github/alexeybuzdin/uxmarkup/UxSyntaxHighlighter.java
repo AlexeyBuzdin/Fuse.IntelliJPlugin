@@ -13,15 +13,15 @@ import static com.intellij.openapi.editor.colors.TextAttributesKey.createTextAtt
 
 public class UxSyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey SEPARATOR =
-            createTextAttributesKey("SIMPLE_SEPARATOR", DefaultLanguageHighlighterColors.OPERATION_SIGN);
+            createTextAttributesKey("UX_SEPARATOR", DefaultLanguageHighlighterColors.OPERATION_SIGN);
     public static final TextAttributesKey KEY =
-            createTextAttributesKey("SIMPLE_KEY", DefaultLanguageHighlighterColors.KEYWORD);
+            createTextAttributesKey("UX_KEY", DefaultLanguageHighlighterColors.KEYWORD);
     public static final TextAttributesKey VALUE =
-            createTextAttributesKey("SIMPLE_VALUE", DefaultLanguageHighlighterColors.STRING);
+            createTextAttributesKey("UX_VALUE", DefaultLanguageHighlighterColors.STRING);
     public static final TextAttributesKey COMMENT =
-            createTextAttributesKey("SIMPLE_COMMENT", DefaultLanguageHighlighterColors.LINE_COMMENT);
+            createTextAttributesKey("UX_COMMENT", DefaultLanguageHighlighterColors.LINE_COMMENT);
     public static final TextAttributesKey BAD_CHARACTER =
-            createTextAttributesKey("SIMPLE_BAD_CHARACTER", HighlighterColors.BAD_CHARACTER);
+            createTextAttributesKey("UX_BAD_CHARACTER", HighlighterColors.BAD_CHARACTER);
 
     private static final TextAttributesKey[] BAD_CHAR_KEYS = new TextAttributesKey[]{BAD_CHARACTER};
     private static final TextAttributesKey[] SEPARATOR_KEYS = new TextAttributesKey[]{SEPARATOR};
@@ -39,7 +39,12 @@ public class UxSyntaxHighlighter extends SyntaxHighlighterBase {
     @NotNull
     @Override
     public TextAttributesKey[] getTokenHighlights(IElementType tokenType) {
-        if (tokenType.equals(UxTypes.NODE)) {
+        System.out.println(tokenType.toString());
+        if (tokenType.equals(UxTypes.TAG_START)) {
+            return KEY_KEYS;
+        } if (tokenType.equals(UxTypes.TAG_END)) {
+            return KEY_KEYS;
+        } if (tokenType.equals(UxTypes.IDENTIFIER)) {
             return KEY_KEYS;
         } else if (tokenType.equals(UxTypes.COMMENT)) {
             return COMMENT_KEYS;

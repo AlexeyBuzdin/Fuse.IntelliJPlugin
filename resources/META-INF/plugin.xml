@@ -29,7 +29,7 @@
     <fileTypeFactory implementation="com.github.alexeybuzdin.FuseToolsTypeFactory"/>
     <lang.parserDefinition language="Ux" implementationClass="com.github.alexeybuzdin.uxmarkup.UxParserDefinition"/>
     <lang.syntaxHighlighterFactory language="Ux" implementationClass="com.github.alexeybuzdin.uxmarkup.UxSyntaxHighlighterFactory"/>
-    <colorSettingsPage implementation="com.github.alexeybuzdin.uxmarkup.UxColorSettingsPage"/>
+    <!--<colorSettingsPage implementation="com.github.alexeybuzdin.uxmarkup.UxColorSettingsPage"/>-->
   </extensions>
 
   <actions>

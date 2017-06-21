@@ -15,26 +15,41 @@ import com.intellij.psi.TokenType;
 %eof{  return;
 %eof}
 
+TAG_START= "<"
+TAG_END= ">"
+SLASH=  "/"
+
 CRLF=\R
 WHITE_SPACE=[\ \n\t\f]
 FIRST_VALUE_CHARACTER=[^ \n\f\\] | "\\"{CRLF} | "\\".
 VALUE_CHARACTER=[^\n\f\\] | "\\"{CRLF} | "\\".
 END_OF_LINE_COMMENT=("#"|"!")[^\r\n]*
 KEY_CHARACTER=[^:=\ \n\t\f\\] | "\\ "
-STRING=[\w]*
 
-%state WAITING_VALUE, STRING
+DIGIT = [0-9]
+LETTER = [:letter:]|"_"
+IDENTIFIER = ({LETTER})({LETTER}|{DIGIT})*
+KEY  = ({LETTER})({LETTER}|{DIGIT})*
+
+%state WAITING_VALUE
 
 %%
 
-{STRING}                                    {  return UxTypes.STRING; }
+<YYINITIAL> {TAG_START}                     { yybegin(WAITING_VALUE); return UxTypes.TAG_START; }
 
- {END_OF_LINE_COMMENT}                           {return UxTypes.COMMENT; }
+<WAITING_VALUE> {TAG_END}                   { yybegin(YYINITIAL); return UxTypes.TAG_END; }
 
- {CRLF}({CRLF}|{WHITE_SPACE})+               { return TokenType.WHITE_SPACE; }
+<WAITING_VALUE> {SLASH}                     { yybegin(WAITING_VALUE); return UxTypes.SLASH; }
 
- {WHITE_SPACE}+                              { return TokenType.WHITE_SPACE; }
+<WAITING_VALUE> {IDENTIFIER}                { yybegin(WAITING_VALUE);  return UxTypes.IDENTIFIER; }
 
-({CRLF}|{WHITE_SPACE})+                                     { return TokenType.WHITE_SPACE; }
+{END_OF_LINE_COMMENT}                       { return UxTypes.COMMENT; }
 
-.                                                           { return TokenType.BAD_CHARACTER; }
+<WAITING_VALUE>  {CRLF}({CRLF}|{WHITE_SPACE})+               { yybegin(WAITING_VALUE);  return TokenType.WHITE_SPACE; }
+
+<WAITING_VALUE>  {WHITE_SPACE}+                              { yybegin(WAITING_VALUE);  return TokenType.WHITE_SPACE; }
+
+({CRLF}|{WHITE_SPACE})+                     { return TokenType.WHITE_SPACE; }
+
+.                                          { return TokenType.BAD_CHARACTER; }
+
