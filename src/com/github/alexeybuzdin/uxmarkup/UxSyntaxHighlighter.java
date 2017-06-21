@@ -20,6 +20,8 @@ public class UxSyntaxHighlighter extends SyntaxHighlighterBase {
             createTextAttributesKey("UX_VALUE", DefaultLanguageHighlighterColors.STRING);
     public static final TextAttributesKey COMMENT =
             createTextAttributesKey("UX_COMMENT", DefaultLanguageHighlighterColors.LINE_COMMENT);
+    public static final TextAttributesKey ATTRIBUTE =
+            createTextAttributesKey("UX_ATTRIBUTE", DefaultLanguageHighlighterColors.MARKUP_ATTRIBUTE);
     public static final TextAttributesKey BAD_CHARACTER =
             createTextAttributesKey("UX_BAD_CHARACTER", HighlighterColors.BAD_CHARACTER);
 
@@ -28,6 +30,7 @@ public class UxSyntaxHighlighter extends SyntaxHighlighterBase {
     private static final TextAttributesKey[] KEY_KEYS = new TextAttributesKey[]{KEY};
     private static final TextAttributesKey[] VALUE_KEYS = new TextAttributesKey[]{VALUE};
     private static final TextAttributesKey[] COMMENT_KEYS = new TextAttributesKey[]{COMMENT};
+    private static final TextAttributesKey[] ATTRIBUTE_KEYS = new TextAttributesKey[]{ATTRIBUTE};
     private static final TextAttributesKey[] EMPTY_KEYS = new TextAttributesKey[0];
 
     @NotNull
@@ -39,15 +42,20 @@ public class UxSyntaxHighlighter extends SyntaxHighlighterBase {
     @NotNull
     @Override
     public TextAttributesKey[] getTokenHighlights(IElementType tokenType) {
-        System.out.println(tokenType.toString());
         if (tokenType.equals(UxTypes.TAG_START)) {
             return KEY_KEYS;
         } if (tokenType.equals(UxTypes.TAG_END)) {
             return KEY_KEYS;
         } if (tokenType.equals(UxTypes.IDENTIFIER)) {
             return KEY_KEYS;
-        } else if (tokenType.equals(UxTypes.COMMENT)) {
+        } if (tokenType.equals(UxTypes.EQUALS)) {
+            return SEPARATOR_KEYS;
+        } if (tokenType.equals(UxTypes.STRING)) {
+            return VALUE_KEYS;
+        }  else if (tokenType.equals(UxTypes.COMMENT)) {
             return COMMENT_KEYS;
+        } else if (tokenType.equals(UxTypes.SIGN)) {
+            return SEPARATOR_KEYS;
         } else if (tokenType.equals(TokenType.BAD_CHARACTER)) {
             return BAD_CHAR_KEYS;
         } else {
