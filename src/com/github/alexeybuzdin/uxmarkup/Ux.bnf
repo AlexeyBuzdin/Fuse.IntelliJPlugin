@@ -21,11 +21,16 @@ tag_start ::= '<'
 tag_end   ::= '>'
 slash     ::= '/'
 
-node ::= node_empty | node_inner
-node_empty ::= tag_start node_name slash tag_end
+comment_start ::= '<!--'
+comment_end ::= '-->'
+
+node ::= comment*(node_empty | node_inner)
+node_empty ::= tag_start node_name  slash tag_end
 node_inner ::= tag_start node_name tag_end node_body tag_start slash node_name tag_end
 
 node_body ::= node*
 node_name ::= IDENTIFIER
 
-COMMENT ::= "#" KEY*
+comment ::= comment_start '.'* comment_end
+
+

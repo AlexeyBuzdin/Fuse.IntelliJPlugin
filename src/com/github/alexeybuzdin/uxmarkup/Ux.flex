@@ -23,7 +23,8 @@ CRLF=\R
 WHITE_SPACE=[\ \n\t\f]
 FIRST_VALUE_CHARACTER=[^ \n\f\\] | "\\"{CRLF} | "\\".
 VALUE_CHARACTER=[^\n\f\\] | "\\"{CRLF} | "\\".
-END_OF_LINE_COMMENT=("#"|"!")[^\r\n]*
+START_COMMENT=("<!--")
+END_COMMENT=[^\r\n]*("-->")
 KEY_CHARACTER=[^:=\ \n\t\f\\] | "\\ "
 
 DIGIT = [0-9]
@@ -31,9 +32,14 @@ LETTER = [:letter:]|"_"
 IDENTIFIER = ({LETTER})({LETTER}|{DIGIT})*
 KEY  = ({LETTER})({LETTER}|{DIGIT})*
 
-%state WAITING_VALUE
+%state WAITING_VALUE, COMMENT
 
 %%
+
+{START_COMMENT}                             { yybegin(COMMENT); return UxTypes.COMMENT; }
+{END_COMMENT}                               { yybegin(YYINITIAL); return UxTypes.COMMENT; }
+<COMMENT> .                                 { yybegin(COMMENT); return UxTypes.COMMENT; }
+
 
 <YYINITIAL> {TAG_START}                     { yybegin(WAITING_VALUE); return UxTypes.TAG_START; }
 
@@ -42,8 +48,6 @@ KEY  = ({LETTER})({LETTER}|{DIGIT})*
 <WAITING_VALUE> {SLASH}                     { yybegin(WAITING_VALUE); return UxTypes.SLASH; }
 
 <WAITING_VALUE> {IDENTIFIER}                { yybegin(WAITING_VALUE);  return UxTypes.IDENTIFIER; }
-
-{END_OF_LINE_COMMENT}                       { return UxTypes.COMMENT; }
 
 <WAITING_VALUE>  {CRLF}({CRLF}|{WHITE_SPACE})+               { yybegin(WAITING_VALUE);  return TokenType.WHITE_SPACE; }
 
