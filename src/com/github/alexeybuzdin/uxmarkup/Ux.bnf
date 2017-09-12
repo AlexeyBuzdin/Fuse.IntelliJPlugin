@@ -15,7 +15,7 @@
   psiImplUtilClass="com.github.alexeybuzdin.uxmarkup.psi.impl.UxPsiImplUtil"
 
   tokens = [
-    JS_BODY="regexp:(.|\n)*"
+    ATTRIBUTE_SCHEMA="regexp:\w+"
   ]
 }
 
@@ -37,4 +37,5 @@ node_text  ::= tag_start NODE_NAME (attribute)* tag_end NODE_INNER_TEXT tag_star
 
 node_body ::= node*
 
+//attribute ::= ATTRIBUTE_SCHEMA':hello="world"'
 attribute ::= (ATTRIBUTE_SCHEMA colon)? ATTRIBUTE_NAME equals STRING

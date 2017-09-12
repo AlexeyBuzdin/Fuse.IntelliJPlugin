@@ -14,6 +14,7 @@ import com.intellij.psi.TokenType;
 %{
         private int start_comment;
         private int comment_depth;
+        private boolean attributeNext;
 %}
 
 TAG_START= "<"
@@ -28,7 +29,6 @@ WHITE_SPACE=[\ \n\t\f]
 DIGIT = [0-9]
 LETTER = [:letter:]|"_"
 IDENTIFIER = ({LETTER})({LETTER}|{DIGIT})*
-KEY  = ({LETTER})({LETTER}|{DIGIT})*
 NODE_NAME = {IDENTIFIER}
 
 STRING_SINGLE_QUOTED=\'([^\\\'\r\n]|{CRLF})*(\'|\\)? | \'\'\' ( (\'(\')?)? [^\'] )* \'\'\'
@@ -72,14 +72,18 @@ JS_KEYWORDS =  "function"
 }
 
 <INSIDE_TAG_NAME> {
-          {NODE_NAME}                  { return UxTypes.NODE_NAME; }
           "ux"                         { return UxTypes.ATTRIBUTE_SCHEMA; }
-          {IDENTIFIER}                 { return UxTypes.ATTRIBUTE_NAME; }
+          {IDENTIFIER}                 {
+                                          if(!attributeNext) {
+                                            attributeNext = true;
+                                            return UxTypes.NODE_NAME;
+                                          }
+                                          return UxTypes.ATTRIBUTE_NAME; }
           {STRING}                     { return UxTypes.STRING; }
           {COLON}                      { return UxTypes.SIGN; }
           {EQUALS}                     { return UxTypes.SIGN; }
           {SLASH}                      { return UxTypes.SLASH; }
-          {TAG_END}                    { yybegin(INSIDE_TAG); return UxTypes.TAG_END; }
+          {TAG_END}                    { attributeNext = false; yybegin(INSIDE_TAG); return UxTypes.TAG_END; }
 }
 
 <INSIDE_TAG> {
