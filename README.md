@@ -25,3 +25,5 @@ Helpful Stuff
 - [How to write a Lexer](http://www.jetbrains.org/intellij/sdk/docs/tutorials/custom_language_support/lexer_and_parser_definition.html)
 - [Buck Build Tool BNF Sample](https://github.com/wangyanxing/Buck-IntelliJ-Plugin/blob/7216c539a7256c8a55c2b2bc8ace83b73d41c018/src/com/intellij/plugin/buck/lang/Buck.bnf)
 - [JFlex Lexecal Parser Manual](http://jflex.de/manual.html)
+- [Grammar-Kit BNF FAQ](https://github.com/JetBrains/Grammar-Kit/blob/master/HOWTO.md)
+
