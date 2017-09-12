@@ -46,8 +46,6 @@ public class UxSyntaxHighlighter extends SyntaxHighlighterBase {
             return KEY_KEYS;
         } if (tokenType.equals(UxTypes.TAG_END)) {
             return KEY_KEYS;
-        } if (tokenType.equals(UxTypes.JS_NODE)) {
-            return KEY_KEYS;
         } if (tokenType.equals(UxTypes.EQUALS)) {
             return SEPARATOR_KEYS;
         } if (tokenType.equals(UxTypes.STRING)) {

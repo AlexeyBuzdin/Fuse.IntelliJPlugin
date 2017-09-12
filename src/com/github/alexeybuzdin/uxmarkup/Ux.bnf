@@ -30,15 +30,11 @@ sign      ::= equals | colon
 
 private comment ::= (BLOCK_COMMENT)
 
-js_start ::= "<JavaScript>"
-js_end ::= "</JavaScript>"
-
-node ::= comment*(node_empty | node_inner | js_node)
+node ::= comment*(node_empty | node_inner | node_text)
 node_empty ::= tag_start NODE_NAME (attribute)* slash tag_end
 node_inner ::= tag_start NODE_NAME (attribute)* tag_end node_body tag_start slash NODE_NAME tag_end
+node_text  ::= tag_start NODE_NAME (attribute)* tag_end NODE_INNER_TEXT tag_start slash NODE_NAME tag_end
 
 node_body ::= node*
 
 attribute ::= (ATTRIBUTE_SCHEMA colon)? ATTRIBUTE_NAME equals STRING
-
-js_node ::= js_start JS_BODY js_end
