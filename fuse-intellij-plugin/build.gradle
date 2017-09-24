@@ -1,0 +1,19 @@
+apply plugin: "org.jetbrains.intellij"
+
+dependencies {
+    compile project(':language')
+}
+
+
+intellij {
+    version intellijSdkVersion
+    pluginName 'FuseSupport'
+    updateSinceUntilBuild false
+    sameSinceUntilBuild false
+    downloadSources true
+}
+
+
+processResources {
+    from 'platform/src/main/resources'
+}
