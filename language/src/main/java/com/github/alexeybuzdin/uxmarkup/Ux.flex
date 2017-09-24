@@ -29,7 +29,7 @@ WHITE_SPACE=[\ \n\t\f]
 DIGIT = [0-9]
 LETTER = [:letter:]|"_"
 IDENTIFIER = ({LETTER})({LETTER}|{DIGIT})*
-NODE_NAME = {IDENTIFIER}
+NODE_NAME = ({LETTER})({LETTER}|{DIGIT}|".")*
 
 STRING_SINGLE_QUOTED=\'([^\\\'\r\n]|{CRLF})*(\'|\\)? | \'\'\' ( (\'(\')?)? [^\'] )* \'\'\'
 STRING_DOUBLE_QUOTED=\"([^\\\"\r\n]|{CRLF})*(\"|\\)? | \"\"\" ( (\"(\")?)? [^\"] )* \"\"\"
@@ -73,7 +73,7 @@ JS_KEYWORDS =  "function"
 
 <INSIDE_TAG_NAME> {
           "ux"                         { return UxTypes.ATTRIBUTE_SCHEMA; }
-          {IDENTIFIER}                 {
+          {NODE_NAME}                 {
                                           if(!attributeNext) {
                                             attributeNext = true;
                                             return UxTypes.NODE_NAME;
