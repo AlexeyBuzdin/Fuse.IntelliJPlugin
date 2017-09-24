@@ -30,11 +30,14 @@
         <fileTypeFactory implementation="com.github.alexeybuzdin.FuseToolsTypeFactory"/>
         <lang.parserDefinition language="Ux" implementationClass="com.github.alexeybuzdin.uxmarkup.UxParserDefinition"/>
         <lang.syntaxHighlighterFactory language="Ux" implementationClass="com.github.alexeybuzdin.uxmarkup.UxSyntaxHighlighterFactory"/>
-        <!--<colorSettingsPage implementation="com.github.alexeybuzdin.uxmarkup.UxColorSettingsPage"/>-->
+        <colorSettingsPage implementation="com.github.alexeybuzdin.uxmarkup.UxColorSettingsPage"/>
     </extensions>
 
     <actions>
-        <!-- Add your actions here -->
+        <action id="com.github.alexeybuzdin.actions.OpenFuseAction" class="com.github.alexeybuzdin.actions.OpenFuseAction"
+                text="Open Fuse Preview" description="Open Fuse Preview" icon="/fuse/icons/file-ux-ico.png">
+            <add-to-group group-id="ToolsMenu" anchor="first"/>
+        </action>
     </actions>
 
 </idea-plugin>
