@@ -9,8 +9,8 @@
   psiImplPackage="com.github.alexeybuzdin.uxmarkup.psi.impl"
 
   elementTypeHolderClass="com.github.alexeybuzdin.uxmarkup.psi.UxTypes"
-  elementTypeClass="com.github.UxElementType"
-  tokenTypeClass="com.github.UxTokenType"
+  elementTypeClass="com.github.alexeybuzdin.uxmarkup.psi.UxElementType"
+  tokenTypeClass="com.github.alexeybuzdin.uxmarkup.psi.UxTokenType"
 
   psiImplUtilClass="com.github.alexeybuzdin.uxmarkup.psi.impl.UxPsiImplUtil"
 
@@ -31,11 +31,15 @@ sign      ::= equals | colon
 private comment ::= (BLOCK_COMMENT)
 
 node ::= comment*(node_empty | node_inner | node_text)
-node_empty ::= tag_start NODE_NAME (attribute)* slash tag_end
-node_inner ::= tag_start NODE_NAME (attribute)* tag_end node_body tag_start slash NODE_NAME tag_end
-node_text  ::= tag_start NODE_NAME (attribute)* tag_end NODE_INNER_TEXT tag_start slash NODE_NAME tag_end
+node_empty ::= '<' NODE_NAME (attribute)* '/' '>'
+node_inner ::= start_tag node_body end_tag
+node_text  ::= start_tag NODE_INNER_TEXT end_tag
+
+start_tag  ::=	'<' NODE_NAME (attribute)* '>'
+end_tag    ::=	'<''/' NODE_NAME '>'
 
 node_body ::= node*
 
-//attribute ::= ATTRIBUTE_SCHEMA':hello="world"'
 attribute ::= (ATTRIBUTE_SCHEMA colon)? ATTRIBUTE_NAME equals STRING
+
+//http://www.jelks.nu/XML/xmlebnf.html
